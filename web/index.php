@@ -1,9 +1,9 @@
 <?php
 
-require('../vendor/autoload.php');
+//require('../vendor/autoload.php');
 
-$app = new Silex\Application();
-$app['debug'] = true;
+// $app = new Silex\Application();
+// $app['debug'] = true;
 
 // // Register the monolog logging service
 // $app->register(new Silex\Provider\MonologServiceProvider(), array(
@@ -22,4 +22,5 @@ $app['debug'] = true;
 //   return $app['twig']->render('index.twig');
 // });
 
-$app->run();
+// $app->run();
+?>
