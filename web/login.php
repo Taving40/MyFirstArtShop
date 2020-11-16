@@ -6,7 +6,7 @@ asdfasdfasdf
 <?php
 
 echo 1;
-include_once 'api/user/read_one.php';
+include_once '/api/user/read_one.php';
 
 $data = json_encode($_POST);
 
