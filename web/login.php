@@ -10,6 +10,8 @@ echo 1;
 
 $data = json_encode($_POST);
 
+echo $data;
+
 // if(read_one($data))
 //     echo "Login Succesful!";
 // else echo "Login failed.";
