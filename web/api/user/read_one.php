@@ -1,10 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: access");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Credentials: true");
-header('Content-Type: application/json');
-  
+
 include_once dirname(__DIR__).'/config/database.php';
 include_once dirname(__DIR__).'/objects/user.php';
   
@@ -20,16 +15,9 @@ function read_one($data){
 
     $user->readOne();
 
-    //$data->email = $user->email;
-
-    echo "\n\n\n";
-    echo ($user->email);
-    echo ($user->password);
-    echo ($user->name);
-    echo "\n\n\n";
     //echo ($data->name == $user->name);
     
-    if($user->email && $user->password == $data->password){
+    if($user->email && password_verify($data->password, $user->password)){
 
         // $user_arr = array(
         //     "email" => $user->email,

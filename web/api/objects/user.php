@@ -53,13 +53,31 @@ class User{
         return false;
     }
 
-    function update(){
+    function update_pass(){
   
         $query = "UPDATE
                     `" . $this->table_name . "`
-                SET
-                `name`='". $this->name . "', " .
+                SET" .
                 "`password`='". $this->password . "'" . 
+                "WHERE
+                    `email` = '".$this->email."'";
+      
+        $stmt = $this->conn->prepare($query);
+        
+        //echo json_encode(array("message" => $query));
+
+        if($stmt->execute())
+            return true;
+
+        return false;
+    }
+
+    function update_name(){
+  
+        $query = "UPDATE
+                    " . $this->table_name . "
+                SET
+                `name`='". $this->name . "'" . 
                 "WHERE
                     `email` = '".$this->email."'";
       

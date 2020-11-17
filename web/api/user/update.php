@@ -1,41 +1,79 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-  
 
 include_once dirname(__DIR__).'/config/database.php';
 include_once dirname(__DIR__).'/objects/user.php';
+include_once __DIR__.'/read_one.php';
 
-$database = new Database();
-$db = $database->getConnection();
-$user = new User($db);
-  
-$data = json_decode(file_get_contents("php://input"));
+function update($data){
 
-//set values
-if(!empty($data->name) && !empty($data->email) && !empty($data->password)){
+    $database = new Database();
+    $db = $database->getConnection();
+    $user = new User($db);
+    
+    $data = json_decode($data);
 
-    $user->email = $data->email;
-    $user->name = $data->name;
-    $user->password = $data->password;
-  
-}
+    if(isset($data->new_password)){
 
-if($user->update()){
-    //200 ok
-    http_response_code(200);
-    //echo "user was updated.";
-    echo json_encode(array("message" => "user was updated."));
-}
-  
+        $test_user = array();
+        $test_user["email"] = $data->email;
+        $test_user["password"] = $data->old_password;
+        $test_user = json_encode($test_user);
 
-else{
-    //503 service unavailable
-    http_response_code(503);
-    //echo "Unable to update user.";
-    echo json_encode(array("message" => "Unable to update user."));
-}
+        if(read_one($test_user)){
+            
+            $user->password = password_hash($data->new_password, PASSWORD_DEFAULT);
+            $user->email = $data->email;
+
+            if($user->update_pass()){
+                //200 ok
+                //http_response_code(200);
+                //echo "user was updated.";
+                //echo json_encode(array("message" => "user was updated."));
+                return true;
+            }
+        }
+
+        else{
+            //503 service unavailable
+            //http_response_code(503);
+            //echo "Unable to update user.";
+            //echo json_encode(array("message" => "Unable to update user."));
+
+            return false;
+        }
+
+    }
+
+    elseif(isset($data->new_name)){
+        $test_user = array();
+        $test_user["email"] = $data->email;
+        $test_user["password"] = $data->password;
+        $test_user = json_encode($test_user);
+
+        if(read_one($test_user)){
+            
+            $user->name =$data->new_name;
+            $user->email = $data->email;
+
+            if($user->update_name()){
+                //200 ok
+                //http_response_code(200);
+                //echo "user was updated.";
+                //echo json_encode(array("message" => "user was updated."));
+                return true;
+            }
+        }
+
+        else{
+            //503 service unavailable
+            //http_response_code(503);
+            //echo "Unable to update user.";
+            //echo json_encode(array("message" => "Unable to update user."));
+
+            return false;
+        }
+
+    }
+    }
+
 ?>
