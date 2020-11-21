@@ -1,28 +1,22 @@
-# php-getting-started
+Art Shop
 
-A barebones PHP app that makes use of the [Silex](http://silex.sensiolabs.org/) web framework, which can easily be deployed to Heroku.
+Roluri utilizatori:
 
-This application supports the [Getting Started with PHP on Heroku](https://devcenter.heroku.com/articles/getting-started-with-php) article - check it out.
+Cumparator 
+-navigare produse 
+-sort produse (by price, most sold), intrinsic sortat dupa reputabilitatea magazinelor (dupa review-uri) 
+-filter produse (sa apara numai un anumit tip, o anumita marime, etc.) 
+-adauga / verifica / scoate din cos
+Procesul de check-out: 
+-metoda de plata (separat, inainte) 
+-restul informatiilor necesare (adresa pentru delivery, summary produse) (delivery furnizat de Vanzator) 
+-Primeste email pentru a confirma delivery-ul (acum poate da si un review la Vanzator)
 
-## Deploying
-
-Install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
-
-```sh
-$ git clone git@github.com:heroku/php-getting-started.git # or clone your own fork
-$ cd php-getting-started
-$ heroku create
-$ git push heroku main
-$ heroku open
-```
-
-or
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using PHP on Heroku, see these Dev Center articles:
-
-- [Getting Started with PHP on Heroku](https://devcenter.heroku.com/articles/getting-started-with-php)
-- [PHP on Heroku](https://devcenter.heroku.com/categories/php)
+Vanzator (un magazin per cont de Vanzator) 
+-adauga produs (specificand tip, marime, pret etc.) 
+-scoate produs din vanzare -update informatii despre produs
+Baza de date, o tabela pentru: 
+-Informatii despre magazine (name, score, number of transactions) 
+-Cumparator / Vanzator account data 
+-Informatii despre produse 
+-Informatii despre delivery-uri (cand se ajunge la ziua in care trebuie sa ajunga produsul, sa se trimita email-ul de confirmare si review)
