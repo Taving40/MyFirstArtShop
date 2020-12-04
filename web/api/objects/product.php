@@ -23,9 +23,9 @@ class Product{
         $query = "SELECT
                     p.id, p.name, p.store_id, p.price, p.description, p.quantity, p.size, p.type
                 FROM
-                    " . $this->table_name . " p
+                    `" . $this->table_name . "` p
                 ORDER BY
-                    p.id DESC";
+                    p.id ASC";
       
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
