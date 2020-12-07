@@ -25,6 +25,7 @@ CREATE TABLE `stores` (
 
 CREATE TABLE `carts` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `cart_id` int NOT NULL,
   `user_email` varchar(255) NOT NULL,
   `product_id` int NOT NULL,
   `quantity` int NOT NULL
@@ -43,7 +44,8 @@ CREATE TABLE `order` (
 CREATE TABLE `reviews` (
   `id` int UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `score` int NOT NULL,
-  `user_email` varchar(255) NOT NULL
+  `user_email` varchar(255) NOT NULL,
+  `store_id` int NOT NULL
 );
 
 ALTER TABLE `products` ADD FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`);
@@ -58,6 +60,6 @@ ALTER TABLE `order` ADD FOREIGN KEY (`user_email`) REFERENCES `users` (`email`);
 
 ALTER TABLE `order` ADD FOREIGN KEY (`responsabil_id`) REFERENCES `stores` (`id`);
 
-ALTER TABLE `reviews` ADD FOREIGN KEY (`id`) REFERENCES `stores` (`id`);
+ALTER TABLE `reviews` ADD FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`);
 
 ALTER TABLE `reviews` ADD FOREIGN KEY (`user_email`) REFERENCES `users` (`email`);

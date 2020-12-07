@@ -32,7 +32,7 @@ function update($data){
         //http_response_code(200);
         //echo "Product was updated.";
         //echo json_encode(array("message" => "Product was updated."));
-        return false;
+        return true;
     }
     
     // if unable to update the product, tell the user
@@ -41,7 +41,7 @@ function update($data){
         //http_response_code(503);
         //echo "Unable to update product.";
         //echo json_encode(array("message" => "Unable to update product."));
-        return true;
+        return false;
     }
 }
 ?>

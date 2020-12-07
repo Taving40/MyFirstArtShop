@@ -64,12 +64,5 @@ function create($data){
     }
 
 }
-
-
-if(!empty($_POST['name'])) {
-
-    $data = json_encode($_POST);
-    echo create($data);
-}
    
 ?>
