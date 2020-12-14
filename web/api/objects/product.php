@@ -21,9 +21,11 @@ class Product{
     function read(){
   
         $query = "SELECT
-                    p.id, p.name, p.store_id, p.price, p.description, p.quantity, p.size, p.type
+                    p.id, p.name, p.store_id, p.price, p.description, p.quantity, p.size, p.type, s.`store_nume`
                 FROM
-                    `" . $this->table_name . "` p
+                    `" . $this->table_name . "` p, `stores` s
+                WHERE 
+                    p.store_id = s.id
                 ORDER BY
                     p.id ASC";
       

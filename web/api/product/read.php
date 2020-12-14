@@ -29,26 +29,18 @@ function read(){
                 "description" => $description,
                 "quantity" => $quantity,
                 "size" => $size,
-                "type" => $type
+                "type" => $type,
+                "store_name" => $store_nume
             );
             
             array_push($products_arr["records"], $product_item);
         }
     
-        //http_response_code(200);
-        //echo $products_arr;
-        //echo json_encode($products_arr);
     }
     
     else{
-        //http_response_code(404);
-        //echo "No products found.";
-        //echo json_encode(
-        //    array("message" => "No products found.")
-        //);
         $products_arr = array();
         array_push($products_arr, "error");
-
     }
 
     return $products_arr;

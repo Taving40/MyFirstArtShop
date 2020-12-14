@@ -7,6 +7,9 @@ DONE scrierile pe baza de date trebuie sa fie facute cu tranzactii !!!!!!!!!!!!!
 
 Back-end:
 
+Save info about user after login in $_SESSION
+Remember to call session_destroy on logout (work with session ids)
+
 DONE Create Create() Method for products.
 DONE Test Method.
 DONE Create Read() Method for products.
@@ -71,14 +74,13 @@ Consider synchronization between tables (updating nr of transactions of store wh
 
 
 Front-end:
-DONE login
+DONE login 
 DONE register
 user details page (add button for rights elevation)
 store page
-home page (list first 5 product from each shop, with visit store page)
 product detail page
 store management page
 cart details page
 
-schimba .html-urile in .php-uri si fa cu include header.php
+
 

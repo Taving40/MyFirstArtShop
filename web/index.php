@@ -1,10 +1,5 @@
-<html>
-
-
 
 <?php
-
-include_once __DIR__ . '/api/store/delete.php';
 
 
 // REVIEW TESTING
