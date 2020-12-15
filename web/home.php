@@ -12,6 +12,7 @@
                 <td>Type</td>
                 <td>Price</td>
                 <td>Store</td>
+                <td>Store Score</td>
             </tr>
 
 
@@ -51,11 +52,7 @@ else { ?>
 
 <?php } 
 
-// print all products DONE
-// structured as a table DONE
-// with add to cart button (create a cart at the start of the session)
-// with link towards product details page (and maybe store page)
-// figure out filtering
+
 
 
 

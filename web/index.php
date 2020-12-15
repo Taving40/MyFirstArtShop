@@ -1,5 +1,11 @@
+<html>
+
+<a href="index.php?link=asdfa"> asdgasdgf </a>
 
 <?php
+
+if (isset($_GET["link"]))
+echo $_GET["link"];
 
 
 // REVIEW TESTING

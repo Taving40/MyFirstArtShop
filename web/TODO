@@ -9,78 +9,43 @@ Back-end:
 
 Save info about user after login in $_SESSION
 Remember to call session_destroy on logout (work with session ids)
-
-DONE Create Create() Method for products.
-DONE Test Method.
-DONE Create Read() Method for products.
-DONE Test Method.
-DONE Create Read_One() Method for products.
-DONE Test Method.
-DONE Create Update() Method for products.
-DONE Test Method.
-DONE Create Delete() Method for products.
-DONE Test Method.
-
-DONE Create Create() Method for orders.
-DONE Test Method.
-DONE Create Read_One() Method for orders.
-DONE Test Method.
-DONE Create Read_All_For_Buyer() Method for orders.
-DONE Test Method.
-DONE Create Read_All_For_Store() Method for orders.
-DONE Test Method.
-DONE Create Update() Method for orders.
-DONE Test Method.
-DONE Create Delete() Method for orders.
-DONE Test Method.
-
-DONE Create Create() Method for carts.
-DONE Test Method.
-DONE Create Read_Cart() Method for carts.
-DONE Test Method.
-DONE Create Read_One() Method for carts.
-DONE Test Method.
-DONE Create Update() Method for carts.
-DONE Test Method.
-DONE Create Delete_Cart_Item() Method for carts.
-DONE Test Method.
-DONE Create Delete_Cart() Method for carts.
-DONE Test Method.
-
-DONE Create Create() Method for stores.
-DONE Test Method.
-DONE Create Read_One() Method for stores.
-DONE Test Method.
-DONE Create Read() Method for stores.
-DONE Test Method.
-DONE Create Update() Method for stores.
-DONE Test Method.
-DONE Create Delete() Method for stores.
-DONE Test Method.
-
-DONE Create Create() Method for reviews.
-DONE Test Method.
-DONE Create Read_One_Store() Method for reviews.
-DONE Test Method.
-DONE Create Read() Method for reviews.
-DONE Test Method.
-Create Update() Method for reviews.
-Test Method.
-Create Delete() Method for reviews.
-Test Method.
-
 Consider synchronization between tables (updating nr of transactions of store when a new order is created etc)
 
 
-
 Front-end:
-DONE login 
-DONE register
-user details page (add button for rights elevation)
-store page
-product detail page
-store management page
-cart details page
+
+Home:
+-print all products DONE
+-structured as a table DONE
+-generate cart id at beggining of session (at login, and start session on home page)
+-with add to cart button (pass product params with url)
+-with link towards product details page (pass product params with url for generic php file)
+-figure out filtering (look at asort())
+
+
+user details page: 
+-add button for rights elevation ("create store" button)
+-add button for change pass / change name
+-add button for delete acc (redirect to already built page, with user details in session)\
+-add list of orders (separate in_transit orders from rest)
+-add star score for finished or failed orders 
+
+product detail page:
+-generic page with parameters from url 
+
+store management page:
+-add buttons for product listing / order listing in navbar (display content based on what is selected)
+-add buttons for order status change 
+-list all STORE RELATED products
+-add ADD button at the top 
+-add edit button for every row
+-add remove button for every row
+-Reviews info
+
+cart details page:
+-list products from cart
+-add remove button (removes 1 from cart)
+-add remove all button (removes all specific type of product from cart)
 
 
 
