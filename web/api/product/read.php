@@ -30,7 +30,8 @@ function read(){
                 "quantity" => $quantity,
                 "size" => $size,
                 "type" => $type,
-                "store_name" => $store_nume
+                "store_name" => $store_nume,
+                "store_score" => $score
             );
             
             array_push($products_arr["records"], $product_item);

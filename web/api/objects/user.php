@@ -19,8 +19,6 @@ class User{
                 FROM
                     `" . $this->table_name . "` u
                 WHERE u.email = '". $this->email . "'";
-      
-        //echo json_encode(array("message" => $query));  
 
         $stmt = $this->conn->prepare( $query );
         $stmt->execute();

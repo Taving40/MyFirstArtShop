@@ -13,15 +13,14 @@ Consider synchronization between tables (updating nr of transactions of store wh
 
 
 Front-end:
+login / register:
+-do redirects for login / register failed / succesful DONE
 
 Home:
--print all products DONE
--structured as a table DONE
--generate cart id at beggining of session (at login, and start session on home page)
--with add to cart button (pass product params with url)
+-Use user's email as identifier for table `carts` DONE
+-with add to cart button DONE
 -with link towards product details page (pass product params with url for generic php file)
 -figure out filtering (look at asort())
-
 
 user details page: 
 -add button for rights elevation ("create store" button)
@@ -46,6 +45,10 @@ cart details page:
 -list products from cart
 -add remove button (removes 1 from cart)
 -add remove all button (removes all specific type of product from cart)
+-add send order button (check and dont allow to order more than what s in stock)
+
+use error_reporting(0); on everything(?)
+consider adding an if((!isset($_SESSION["login"])) exit; at the start of every page
 
 
 

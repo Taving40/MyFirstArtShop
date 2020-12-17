@@ -3,15 +3,17 @@
 include_once dirname(__DIR__).'/config/database.php';
 include_once dirname(__DIR__).'/objects/cart.php';
 
-//receives cart_id
-function read_cart($data){
+//receives user_email
+function read_all_cart($data){
 
     $database = new Database();
     $db = $database->getConnection();
     $cart = new Cart($db);
 
-    if($data){
-        $cart->cart_id = $data;
+    $data = json_decode($data);
+
+    if($data->user_email){
+        $cart->user_email = $data->user_email;
     }
 
     $stmt = $cart->read_cart();
@@ -29,7 +31,6 @@ function read_cart($data){
             $cart_item=array( // face array din ele
             "id" => $id,
             "user_email" => $user_email,
-            "cart_id" => $cart_id,
             "product_id" => $product_id,
             "quantity" => $quantity
             );

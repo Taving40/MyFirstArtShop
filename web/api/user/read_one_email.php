@@ -3,7 +3,7 @@
 include_once dirname(__DIR__).'/config/database.php';
 include_once dirname(__DIR__).'/objects/user.php';
   
-function read_one($data){
+function read_one_email($data){
 
     $database = new Database();
     $db = $database->getConnection();
@@ -13,7 +13,7 @@ function read_one($data){
     $user->email = $data->email;
     $user->readOne();
     
-    if($user->email && password_verify($data->password, $user->password)){
+    if($user->password){
 
         return true;
     }

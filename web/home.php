@@ -1,3 +1,18 @@
+<?php session_start(); 
+
+if (!isset($_SESSION["login"]) || $_SESSION["login"] == "failed") {
+    ?>
+    <alert class="alert">
+    <?php
+    echo "Please log in first or register an account!!";
+    ?>
+    </alert>
+    <?php
+    exit;
+}
+
+?>
+
 <?php include_once 'header.php'; ?>
 
 <div class="container mt-5">    
@@ -13,6 +28,7 @@
                 <td>Price</td>
                 <td>Store</td>
                 <td>Store Score</td>
+                <td>Add to cart</td>
             </tr>
 
 
@@ -33,6 +49,12 @@ if (!array_key_exists("error", $products)){
             <td> <?php echo $product["type"] ?> </td>
             <td> <?php echo $product["price"] ?> </td>
             <td> <?php echo $product["store_name"] ?> </td>
+            <td> <?php echo $product["store_score"] ?> </td>
+            <td> 
+                <form method="POST" action="add_product_to_cart.php">
+                <button type="submit" class="btn-default" name="product_id" value= <?php echo '"'. $product["id"] .'"' ?>   > Add to cart </button> 
+                </form>
+            </td>
         </tr>
         
     <?php
@@ -46,14 +68,13 @@ if (!array_key_exists("error", $products)){
     <?php
 }
 
+
+
 else { ?>
     
    <h3> No products found. </h3>
 
 <?php } 
-
-
-
 
 
 include_once 'footer.php'; ?>

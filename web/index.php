@@ -7,6 +7,8 @@
 if (isset($_GET["link"]))
 echo $_GET["link"];
 
+echo 2;
+
 
 // REVIEW TESTING
 

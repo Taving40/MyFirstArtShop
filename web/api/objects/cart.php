@@ -5,7 +5,6 @@ class Cart{
     private $table_name = "carts";
   
     public $id;
-    public $cart_id;
     public $user_email;
     public $product_id;
     public $quantity;
@@ -17,10 +16,10 @@ class Cart{
     function read_cart(){
   
         $query = "SELECT 
-                    c.id, c.user_email, c.cart_id, c.product_id, c.quantity
+                    c.id, c.user_email, c.product_id, c.quantity
                 FROM 
                     `" . $this->table_name . "` c
-                WHERE c.cart_id = ". $this->cart_id;
+                WHERE c.user_email = '". $this->user_email . "'";
       
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -34,12 +33,13 @@ class Cart{
                     c.id, c.user_email, c.product_id, c.quantity
                 FROM 
                     `" . $this->table_name . "` c
-                WHERE c.id = ". $this->id;
+                WHERE c.product_id = ". $this->product_id .
+                " AND c.user_email = '" . $this->user_email ."'";
       
 
         $stmt = $this->conn->prepare( $query );
+
         $stmt->execute();
-      
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($row != false){
@@ -57,10 +57,10 @@ class Cart{
                 SET
                     `user_email`='". $this->user_email .
                     "', `product_id`=". $this->product_id .
-                    ", `cart_id`=". $this->cart_id .
                     ", `quantity`=". $this->quantity;
+
         $stmt = $this->conn->prepare($query);
-        echo $query;
+
         if($stmt->execute()){
             
             return true;
@@ -74,9 +74,8 @@ class Cart{
         $query = "UPDATE
                     `" . $this->table_name . "`
                 SET
-                `user_email`='". $this->user_email .
-                    "', `cart_id`=". $this->cart_id .
-                    ", `product_id`=". $this->product_id .
+                    `user_email`='". $this->user_email .
+                    "', `product_id`=". $this->product_id .
                     ", `quantity`=". $this->quantity . "
                 WHERE
                     `id` = ".$this->id;
@@ -91,7 +90,7 @@ class Cart{
 
     function delete_cart(){
   
-        $query = "DELETE FROM `" . $this->table_name . "` WHERE `cart_id` = ". $this->cart_id;
+        $query = "DELETE FROM `" . $this->table_name . "` WHERE `user_email` = '". $this->user_email . "'";
     
         $stmt = $this->conn->prepare($query);
       

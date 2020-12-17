@@ -15,7 +15,6 @@ function update($data){
     if(!empty($data->id)){
         $cart->id = $data->id;
         $cart->user_email = $data->user_email;
-        $cart->cart_id = $data->cart_id;
         $cart->product_id = $data->product_id;
         $cart->quantity = $data->quantity;
     }

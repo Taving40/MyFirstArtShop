@@ -21,7 +21,8 @@ class Product{
     function read(){
   
         $query = "SELECT
-                    p.id, p.name, p.store_id, p.price, p.description, p.quantity, p.size, p.type, s.`store_nume`
+                    p.id, p.name, p.store_id, p.price, p.description, p.quantity, 
+                    p.size, p.type, s.`store_nume`, s.`score`
                 FROM
                     `" . $this->table_name . "` p, `stores` s
                 WHERE 

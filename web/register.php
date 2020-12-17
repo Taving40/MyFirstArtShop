@@ -1,4 +1,31 @@
-<?php session_start(); ?>
+<?php session_start();
+
+include_once __DIR__ . '/api/config/utilities.php';
+include_once __DIR__ . '/api/config/mail.php';
+include_once __DIR__ . '/api/user/read_one_email.php';
+
+$data = $_POST;
+$data = valid_input($data);
+
+if(!read_one_email(json_encode($data))){
+    
+    $key = getRandomString();
+
+    $_SESSION["data"] = $data;
+    $_SESSION["key"] = $key;
+
+    mailer($data["email"], "myfirstartshop@gmail.com", "Art Shop", "Email confirmation", 
+    "Please confirm your email with the following code: " . $key . ".");
+
+}
+
+else{
+    $_SESSION["register"] = "failed";
+    header("Location: register_form.php");
+    exit;
+}
+
+?>
 
 <html>
 <body>
@@ -11,27 +38,6 @@
 
 <link rel="stylesheet" href="css/demo.css">
 </head>
-
-<?php
-
-
-include_once __DIR__ . '/api/config/utilities.php';
-include_once __DIR__ . '/api/config/mail.php';
-
-
-$data = $_POST;
-
-$data = valid_input($data);
-
-$key = getRandomString();
-
-$_SESSION["data"] = $data;
-$_SESSION["key"] = $key;
-
-mailer($data["email"], "myfirstartshop@gmail.com", "Art Shop", "Email confirmation", 
-"Please confirm your email with the following code: " . $key . ".");
-
-?>
 
 <form class="form-signin" action="register_auth.php" method="POST">  
     <input type="text" class="form-control" name="key" placeholder="Key" required/>   
