@@ -15,7 +15,7 @@ function read_one_product($data){
         $product->id = $data->id;
     else
         return false;
-    $product->readOne();
+    $temp_arr = $product->readOne();
     
     if($product->name){
 
@@ -27,7 +27,9 @@ function read_one_product($data){
             "description" => $product->description,
             "quantity" => $product->quantity,
             "size" => $product->size,
-            "type" => $product->type
+            "type" => $product->type,
+            "store_name" => $temp_arr["store_name"],
+            "store_score" => $temp_arr["score"]
         );
     
         return $product_arr;

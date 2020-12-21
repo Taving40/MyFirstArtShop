@@ -40,10 +40,14 @@ class Product{
   
         // query to read single record
         $query = "SELECT
-                    p.id, p.name, p.store_id, p.price, p.description, p.quantity, p.size, p.type
+                    p.id, p.name, p.store_id, p.price, 
+                    p.description, p.quantity, p.size, p.type, 
+                    s.store_nume, s.score
                 FROM
-                    " . $this->table_name . " p
-                WHERE p.id = ". $this->id;
+                    " . $this->table_name . " p, stores s
+                WHERE 
+                    p.id = ". $this->id .
+                " AND p.store_id = s.id";
       
 
         $stmt = $this->conn->prepare( $query );
@@ -62,6 +66,9 @@ class Product{
             $this->store_id = $row['store_id'];
             $this->quantity = $row['quantity'];
         }
+
+        return array("score" => $row["score"],
+                     "store_name" => $row["store_nume"]);
     }
 
     function create(){

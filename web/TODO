@@ -19,7 +19,7 @@ login / register:
 Home:
 -Use user's email as identifier for table `carts` DONE
 -with add to cart button DONE
--with link towards product details page (pass product params with url for generic php file)
+-with link towards product details page (pass product params with url for generic php file) DONE
 -figure out filtering (look at asort())
 
 user details page: 
@@ -30,7 +30,7 @@ user details page:
 -add star score for finished or failed orders 
 
 product detail page:
--generic page with parameters from url 
+-generic page with parameters from url DONE
 
 store management page:
 -add buttons for product listing / order listing in navbar (display content based on what is selected)
@@ -48,7 +48,7 @@ cart details page:
 -add send order button (check and dont allow to order more than what s in stock)
 
 use error_reporting(0); on everything(?)
-consider adding an if((!isset($_SESSION["login"])) exit; at the start of every page
+consider adding an if((!isset($_SESSION["login"])) exit; at the start of EVERY page
 
 
 

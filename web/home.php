@@ -1,15 +1,8 @@
 <?php session_start(); 
 
-if (!isset($_SESSION["login"]) || $_SESSION["login"] == "failed") {
-    ?>
-    <alert class="alert">
-    <?php
-    echo "Please log in first or register an account!!";
-    ?>
-    </alert>
-    <?php
-    exit;
-}
+include_once __DIR__ . "/api/config/utilities.php";
+
+not_logged_in();
 
 ?>
 
@@ -17,6 +10,25 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] == "failed") {
 
 <div class="container mt-5">    
 <h2> Available Products </h2> 
+<hr>
+<h4> Filter products: </h2>
+<br>
+
+<form method="POST" action="home.php">
+<div class="btn-group">
+<button type="submit" class="btn-default" name="filter" value="name"> Alphabetical </button> 
+<button type="submit" class="btn-default" name="filter" value="price"> Least to most expensive </button> 
+<button type="submit" class="btn-default" name="filter" value="rev_price"> Most to least expensive </button> 
+<button type="submit" class="btn-default" name="filter" value="type"> Product types </button> 
+<button type="submit" class="btn-default" name="filter" value="quantity">Least to most available </button>
+<button type="submit" class="btn-default" name="filter" value="rev_quantity"> Most to least available </button> 
+<button type="submit" class="btn-default" name="filter" value="store_score"> Store reputability </button> 
+</div>
+</form>
+
+
+<hr>
+
 <div class="row">
     <div class="col-sm">
         <table class='table table-striped table-bordered'>
@@ -26,6 +38,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] == "failed") {
                 <td>Description</td>
                 <td>Type</td>
                 <td>Price</td>
+                <td>Stock</td>
                 <td>Store</td>
                 <td>Store Score</td>
                 <td>Add to cart</td>
@@ -40,14 +53,27 @@ $products = read();
 
 if (!array_key_exists("error", $products)){ 
 
-    foreach($products["records"] as $product){ ?>
+    $sorter = new Nested_arr_uasort();
+    $sorter->arr_of_arrs = $products["records"];
+    if(isset($_POST["filter"])){
+        $data = $_POST;
+        $data = valid_input($data);
+        $sorter->inner_arr_field = $data["filter"];
+    }
+        
+    else
+        $sorter->inner_arr_field = "name";
+    $products = $sorter->get_sorted_arr();
+
+    foreach($products as $product){ ?>
 
         <tr>
             <td> <?php echo $product["id"] ?> </td>
-            <td> <?php echo $product["name"] ?> </td>
+            <td> <a href= <?php echo "show_product.php?id=" . $product["id"] ?> >  <?php echo $product["name"] ?> </a> </td>
             <td> <?php echo $product["description"] ?> </td>
             <td> <?php echo $product["type"] ?> </td>
             <td> <?php echo $product["price"] ?> </td>
+            <td> <?php echo $product["quantity"] ?> </td>
             <td> <?php echo $product["store_name"] ?> </td>
             <td> <?php echo $product["store_score"] ?> </td>
             <td> 
