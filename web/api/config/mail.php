@@ -2,7 +2,7 @@
 
 <?php
 
-require dirname(dirname(__DIR__)).'/vendor/autoload.php';
+require /*dirname(dirname(__DIR__)).*/'/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 
