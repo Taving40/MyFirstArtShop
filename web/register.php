@@ -20,9 +20,9 @@ if(!read_one_email(json_encode($data))){
 }
 
 else{
-    $_SESSION["register"] = "failed";
-    header("Location: register_form.php");
-    exit;
+    // $_SESSION["register"] = "failed";
+    // header("Location: register_form.php");
+    // exit;
 }
 
 ?>
