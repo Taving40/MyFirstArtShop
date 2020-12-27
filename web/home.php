@@ -6,7 +6,7 @@ not_logged_in();
 
 ?>
 
-<?php include_once 'header.php'; ?>
+<?php include_once 'header.php';?>
 
 <div class="container mt-5">    
 <h2> Available Products </h2> 
@@ -16,13 +16,13 @@ not_logged_in();
 
 <form method="POST" action="home.php">
 <div class="btn-group">
-<button type="submit" class="btn-default" name="filter" value="name"> Alphabetical </button> 
-<button type="submit" class="btn-default" name="filter" value="price"> Least to most expensive </button> 
-<button type="submit" class="btn-default" name="filter" value="rev_price"> Most to least expensive </button> 
-<button type="submit" class="btn-default" name="filter" value="type"> Product types </button> 
-<button type="submit" class="btn-default" name="filter" value="quantity">Least to most available </button>
-<button type="submit" class="btn-default" name="filter" value="rev_quantity"> Most to least available </button> 
-<button type="submit" class="btn-default" name="filter" value="store_score"> Store reputability </button> 
+<button type="submit" class="btn-secondary" name="filter" value="name"> Alphabetical </button> 
+<button type="submit" class="btn-secondary" name="filter" value="price"> Least to most expensive </button> 
+<button type="submit" class="btn-secondary" name="filter" value="rev_price"> Most to least expensive </button> 
+<button type="submit" class="btn-secondary" name="filter" value="type"> Product types </button> 
+<button type="submit" class="btn-secondary" name="filter" value="quantity">Least to most available </button>
+<button type="submit" class="btn-secondary" name="filter" value="rev_quantity"> Most to least available </button> 
+<button type="submit" class="btn-secondary" name="filter" value="store_score"> Store reputability </button> 
 </div>
 </form>
 
@@ -78,7 +78,7 @@ if (!array_key_exists("error", $products)){
             <td> <?php echo $product["store_score"] ?> </td>
             <td> 
                 <form method="POST" action="add_product_to_cart.php">
-                <button type="submit" class="btn-default" name="product_id" value= <?php echo '"'. $product["id"] .'"' ?>   > Add to cart </button> 
+                <button type="submit" class="btn-secondary" name="product_id" value= <?php echo '"'. $product["id"] .'"' ?>   > Add to cart </button> 
                 </form>
             </td>
         </tr>

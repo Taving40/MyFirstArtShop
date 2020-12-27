@@ -19,13 +19,6 @@ $product = read_one_product($data);
 // }
 
 ?>
-<div class="card">
-
-<div class = "text-center card-header"> 
-    <h1>  </h1> 
-    <p>  </p>
-</div> 
-</div>
 
 <div class="card">
   <div class="card-body">
@@ -34,6 +27,7 @@ $product = read_one_product($data);
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item"> In-stock quantity: <?php echo $product["quantity"];?> </li>
+    <li class="list-group-item">This <?php echo $product["type"]?> is: <?php echo $product["size"];?></li>
     <li class="list-group-item">Product sold by: <?php echo $product["store_name"];?></li>
     <li class="list-group-item">With a reputability of <?php echo $product["store_score"];?> stars</li>
   </ul>

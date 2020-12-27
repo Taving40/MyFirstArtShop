@@ -46,12 +46,12 @@ class Product{
                 FROM
                     " . $this->table_name . " p, stores s
                 WHERE 
-                    p.id = ". $this->id .
-                " AND p.store_id = s.id";
+                    p.id = ?
+                AND p.store_id = s.id";
       
 
         $stmt = $this->conn->prepare( $query );
-        $stmt->execute();
+        $stmt->execute(array($this->id));
       
         // get retrieved row
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -76,17 +76,23 @@ class Product{
         $query = "INSERT INTO
                     `" . $this->table_name . "`
                 SET
-                    `name`='". $this->name .
-                    "', `store_id`=". $this->store_id .
-                    ", `price`=". $this->price .
-                    ", `description`='". $this->description .
-                    "', `quantity`=". $this->quantity .
-                    ", `size`='". $this->size .
-                    "', `type`='". $this->type . "'";
+                    `name`= ?
+                    , `store_id`= ?
+                    , `price`= ?
+                    , `description`= ?
+                    , `quantity`= ?
+                    , `size`= ?
+                    , `type`= ? ";
 
         $stmt = $this->conn->prepare($query);
     
-        if($stmt->execute())
+        if($stmt->execute(array($this->name,
+                                $this->store_id,
+                                $this->price,
+                                $this->description,
+                                $this->quantity,
+                                $this->size,
+                                $this->type)))
             return true;
 
         //echo json_encode(array("message" => $query));
@@ -99,19 +105,26 @@ class Product{
         $query = "UPDATE
                     `" . $this->table_name . "`
                 SET
-                `name`='". $this->name .
-                    "', `store_id`=". $this->store_id .
-                    ", `price`=". $this->price .
-                    ", `description`='". $this->description .
-                    "', `quantity`=". $this->quantity .
-                    ", `size`='". $this->size .
-                    "', `type`='". $this->type . "'". "
+                    `name`= ?
+                    , `store_id`= ?
+                    , `price`= ?
+                    , `description`= ?
+                    , `quantity`= ?
+                    , `size`= ?
+                    , `type`= ?
                 WHERE
-                    `id` = ".$this->id;
+                    `id` = ?";
       
         $stmt = $this->conn->prepare($query);
 
-        if($stmt->execute())
+        if($stmt->execute(array($this->name,
+                                $this->store_id,
+                                $this->price,
+                                $this->description,
+                                $this->quantity,
+                                $this->size,
+                                $this->type,
+                                $this->id)))
             return true;
 
         return false;
@@ -119,11 +132,11 @@ class Product{
 
     function delete(){
   
-        $query = "DELETE FROM `" . $this->table_name . "` WHERE `id` = ". $this->id;
+        $query = "DELETE FROM `" . $this->table_name . "` WHERE `id` = ?";
     
         $stmt = $this->conn->prepare($query);
       
-        if($stmt->execute())
+        if($stmt->execute(array($this->id)))
             return true;
 
         return false;

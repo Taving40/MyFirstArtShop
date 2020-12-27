@@ -15,7 +15,7 @@ function read_one($data){
     
     if($user->email && password_verify($data->password, $user->password)){
 
-        return true;
+        return $user->name;
     }
     
     else{

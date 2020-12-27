@@ -28,27 +28,24 @@
     <!-- Navbar Links -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-            <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+            <a class="nav-link" href="home.php">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="" target="_blank">Account Details</a>
+            <a class="nav-link" href="" >Account Details</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="" target="_blank">Store Management</a>
+            <a class="nav-link" href="" >Store Management</a>
         </li>
-        <!-- drop down will be here -->
-        <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Cart Details
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">See Cart</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Empty Cart</a>
-    </div>
-</li>
+        <li class="nav-item">
+            <a class="nav-link" href="cart_details.php" >Cart Details</a>
+        </li>
+        <li class="nav-item">
+           <span class="nav-link" style="padding-left: 15em"> Hello, <?php echo $_SESSION["name"], "!"; ?> </span> 
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="logout.php" >Log out</a>
+        </li>
 
     </ul>
     <!-- search form will be here -->

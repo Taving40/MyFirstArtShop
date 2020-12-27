@@ -1,4 +1,10 @@
 
+<div class="text-center" style="padding-top: 10rem">
+  <div class="card text-muted">
+    <a href="https://github.com/Taving40/MyFirstArtShop"> About </a>
+  </div>
+</div>
+
 </body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

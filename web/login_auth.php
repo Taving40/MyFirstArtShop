@@ -9,9 +9,10 @@ $data = valid_input($data);
 
 $data = json_encode($data);
 
-if(read_one($data)){
+if($name = read_one($data)){
     $data = json_decode($data);
     $_SESSION["email"] = $data->email;
+    $_SESSION["name"] = $name;
     $_SESSION["login"] = "succesful";
     header("Location: home.php");
     exit;

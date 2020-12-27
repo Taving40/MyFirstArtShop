@@ -19,10 +19,10 @@ class Review{
                     r.id, r.user_email, r.score, r.store_id
                 FROM 
                     `" . $this->table_name . "` r
-                WHERE r.store_id = ". $this->store_id;
+                WHERE r.store_id = ?";
       
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+        $stmt->execute(array($this->store_id));
       
         return $stmt;
     }
@@ -33,11 +33,11 @@ class Review{
                     r.id, r.user_email, r.score, r.store_id
                 FROM 
                     `" . $this->table_name . "` r
-                WHERE r.id = ". $this->id;
+                WHERE r.id = ?";
       
 
         $stmt = $this->conn->prepare( $query );
-        $stmt->execute();
+        $stmt->execute(array($this->id));
       
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -54,12 +54,15 @@ class Review{
         $query = "INSERT INTO
                     `" . $this->table_name . "`
                 SET
-                    `user_email`='". $this->user_email .
-                    "', `score`=". $this->score .
-                    ", `store_id`=". $this->store_id;
+                    `user_email`= ?
+                    , `score`= ?
+                    , `store_id`=?";
+
         $stmt = $this->conn->prepare($query);
-        echo $query;
-        if($stmt->execute()){
+        //echo $query;
+        if($stmt->execute(array($this->user_email,
+                                $this->score,
+                                $this->store_id))){
             return true;
         }
             
@@ -71,15 +74,18 @@ class Review{
         $query = "UPDATE
                     `" . $this->table_name . "`
                 SET
-                `user_email`='". $this->user_email .
-                    "', `store_id`=". $this->store_id .
-                    ", `score`=". $this->score . "
+                    `user_email`= ?
+                    , `store_id`= ?
+                    , `score`= ?
                 WHERE
-                    `id` = ".$this->id;
+                    `id` = ?";
       
         $stmt = $this->conn->prepare($query);
 
-        if($stmt->execute())
+        if($stmt->execute(array($this->user_email,
+                                $this->score,
+                                $this->store_id,
+                                $this->id)))
             return true;
 
         return false;
@@ -87,11 +93,12 @@ class Review{
 
     function delete_all_from_store(){
   
-        $query = "DELETE FROM `" . $this->table_name . "` WHERE `store_id` = ". $this->store_id;
+        $query = "DELETE FROM `" . $this->table_name . 
+        "` WHERE `store_id` = ?";
     
         $stmt = $this->conn->prepare($query);
       
-        if($stmt->execute())
+        if($stmt->execute(array($this->store_id)))
             return true;
 
         return false;
@@ -99,11 +106,11 @@ class Review{
 
     function delete(){
   
-        $query = "DELETE FROM `" . $this->table_name . "` WHERE `id` = ". $this->id;
+        $query = "DELETE FROM `" . $this->table_name . "` WHERE `id` = ?";
     
         $stmt = $this->conn->prepare($query);
       
-        if($stmt->execute())
+        if($stmt->execute(array($this->id)))
             return true;
 
         return false;

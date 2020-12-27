@@ -34,11 +34,11 @@ class Store{
                     s.id, s.admin_email, s.store_nume, s.score, s.nr_tranzactii
                 FROM 
                     `" . $this->table_name . "` s
-                WHERE s.id = ". $this->id;
+                WHERE s.id = ?";
       
 
         $stmt = $this->conn->prepare( $query );
-        $stmt->execute();
+        $stmt->execute(array($this->id));
       
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -56,13 +56,17 @@ class Store{
         $query = "INSERT INTO
                     `" . $this->table_name . "`
                 SET
-                    `admin_email`='". $this->admin_email .
-                    "', `store_nume`='". $this->store_nume .
-                    "', `score`=". $this->score .
-                    ", `nr_tranzactii`=". $this->nr_tranzactii;
+                    `admin_email`= ?
+                    , `store_nume`= ?
+                    , `score`= ?
+                    , `nr_tranzactii`= ?";
+
         $stmt = $this->conn->prepare($query);
         echo $query;
-        if($stmt->execute()){
+        if($stmt->execute(array($this->admin_email,
+                                $this->store_nume,
+                                $this->score,
+                                $this->nr_tranzactii))){
             return true;
         }
         return false;
@@ -73,27 +77,32 @@ class Store{
         $query = "UPDATE
                     `" . $this->table_name . "`
                 SET
-                    `admin_email`='". $this->admin_email .
-                    "', `store_nume`='". $this->store_nume .
-                    "', `score`=". $this->score .
-                    ", `nr_tranzactii`=". $this->nr_tranzactii ."
+                    `admin_email`= ?
+                    , `store_nume`= ?
+                    , `score`= ?
+                    , `nr_tranzactii`= ?
                 WHERE
-                    `id` = ".$this->id;
+                    `id` = ?";
       
         $stmt = $this->conn->prepare($query);
-        if($stmt->execute())
+        if($stmt->execute(array($this->admin_email,
+                                $this->store_nume,
+                                $this->score,
+                                $this->nr_tranzactii,
+                                $this->id))){
             return true;
+        }
 
         return false;
     }
 
     function delete(){
   
-        $query = "DELETE FROM `" . $this->table_name . "` WHERE `id` = ". $this->id;
+        $query = "DELETE FROM `" . $this->table_name . "` WHERE `id` = ?";
     
         $stmt = $this->conn->prepare($query);
       
-        if($stmt->execute())
+        if($stmt->execute(array($this->id)))
             return true;
 
         return false;

@@ -22,12 +22,12 @@ class Order{
                     o.id, o.user_email, o.status, o.responsabil_id, o.address, o.eta, o.plata
                 FROM
                     `" . $this->table_name . "` o
-                WHERE o.user_email = '" .$this->user_email. "'
+                WHERE o.user_email = ?
                 ORDER BY
                     o.id ASC";
       
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+        $stmt->execute(array( $this->user_email));
       
         return $stmt;
     }
@@ -38,12 +38,12 @@ class Order{
                     o.id, o.user_email, o.status, o.responsabil_id, o.address, o.eta, o.plata
                 FROM
                     `" . $this->table_name . "` o
-                WHERE o.responsabil_id = " .$this->responsabil_id. "
+                WHERE o.responsabil_id = ?
                 ORDER BY
                     o.id ASC";
       
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+        $stmt->execute(array($this->responsabil_id));
       
         return $stmt;
     }
@@ -54,11 +54,11 @@ class Order{
                     o.id, o.user_email, o.status, o.responsabil_id, o.address, o.eta, o.plata
                 FROM 
                     `" . $this->table_name . "` o
-                WHERE o.id = ". $this->id;
+                WHERE o.id = ?";
       
 
         $stmt = $this->conn->prepare( $query );
-        $stmt->execute();
+        $stmt->execute(array($this->id));
       
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -80,15 +80,20 @@ class Order{
         $query = "INSERT INTO
                     `" . $this->table_name . "`
                 SET
-                    `user_email`='". $this->user_email .
-                    "', `status`='". $this->status .
-                    "', `responsabil_id`=". $this->responsabil_id .
-                    ", `address`='". $this->address .
-                    "', `eta`='". $this->eta .
-                    "', `plata`='". $this->plata . "'";
+                    `user_email`= ?
+                    , `status`= ?
+                    , `responsabil_id`= ?
+                    , `address`= ?
+                    , `eta`= ?
+                    , `plata`= ?";
         $stmt = $this->conn->prepare($query);
     
-        if($stmt->execute()){
+        if($stmt->execute(array($this->user_email,
+                                $this->status,
+                                $this->responsabil_id,
+                                $this->address,
+                                $this->eta,
+                                $this->plata))){
             return true;
         }
             
@@ -100,18 +105,24 @@ class Order{
         $query = "UPDATE
                     `" . $this->table_name . "`
                 SET
-                `user_email`='". $this->user_email .
-                    "', `status`='". $this->status .
-                    "', `responsabil_id`=". $this->responsabil_id .
-                    ", `address`='". $this->address .
-                    "', `eta`='". $this->eta .
-                    "', `plata`='". $this->plata . "'" . "
+                    `user_email`= ?
+                    , `status`= ?
+                    , `responsabil_id`= ?
+                    , `address`= ?
+                    , `eta`= ?
+                    , `plata`= ?
                 WHERE
-                    `id` = ".$this->id;
+                    `id` = ?";
       
         $stmt = $this->conn->prepare($query);
 
-        if($stmt->execute())
+        if($stmt->execute(array($this->user_email,
+                                $this->status,
+                                $this->responsabil_id,
+                                $this->address,
+                                $this->eta,
+                                $this->plata,
+                                $this->id)))
             return true;
 
         return false;
@@ -119,11 +130,11 @@ class Order{
 
     function delete(){
   
-        $query = "DELETE FROM `" . $this->table_name . "` WHERE `id` = ". $this->id;
+        $query = "DELETE FROM `" . $this->table_name . "` WHERE `id` = ?";
     
         $stmt = $this->conn->prepare($query);
       
-        if($stmt->execute())
+        if($stmt->execute(array($this->id)))
             return true;
 
         return false;

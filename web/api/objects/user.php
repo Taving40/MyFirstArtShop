@@ -18,10 +18,10 @@ class User{
                     u.email, u.name, u.password
                 FROM
                     `" . $this->table_name . "` u
-                WHERE u.email = '". $this->email . "'";
+                WHERE u.email = ?";
 
         $stmt = $this->conn->prepare( $query );
-        $stmt->execute();
+        $stmt->execute(array($this->email));
       
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
       
@@ -37,14 +37,17 @@ class User{
         $query = "INSERT INTO
                     `" . $this->table_name . "`
                 SET
-                    `name`='". $this->name .
-                    "', `email`='". $this->email .
-                    "', `password`='". $this->password ."';";
+                    `name`= ?
+                    , `email`= ?
+                    , `password`= ?";
                     
         $stmt = $this->conn->prepare($query);
     
-        if($stmt->execute())
+        if($stmt->execute(array($this->name,
+                                $this->email,
+                                $this->password))) {
             return true;
+        }
 
         //echo json_encode(array("message" => $query));
 
@@ -55,17 +58,19 @@ class User{
   
         $query = "UPDATE
                     `" . $this->table_name . "`
-                SET" .
-                "`password`='". $this->password . "'" . 
-                "WHERE
-                    `email` = '".$this->email."'";
+                SET
+                `password`= ?
+                WHERE
+                    `email` = ?";
       
         $stmt = $this->conn->prepare($query);
         
         //echo json_encode(array("message" => $query));
 
-        if($stmt->execute())
+        if($stmt->execute(array($this->password,
+                                $this->email,))) {
             return true;
+        }
 
         return false;
     }
@@ -73,17 +78,18 @@ class User{
     function update_name(){
   
         $query = "UPDATE
-                    " . $this->table_name . "
+                    `" . $this->table_name . "`
                 SET
-                `name`='". $this->name . "'" . 
-                "WHERE
-                    `email` = '".$this->email."'";
+                    `name`= ?
+                WHERE
+                    `email` = ?";
       
         $stmt = $this->conn->prepare($query);
         
         //echo json_encode(array("message" => $query));
 
-        if($stmt->execute())
+        if($stmt->execute(array($this->name, 
+                                $this->email)))
             return true;
 
         return false;
@@ -91,11 +97,12 @@ class User{
 
     function delete(){
   
-        $query = "DELETE FROM `" . $this->table_name . "` WHERE `email` = '". $this->email . "'";
+        $query = "DELETE FROM `" . $this->table_name . "` 
+                    WHERE `email` = ?";
     
         $stmt = $this->conn->prepare($query);
       
-        if($stmt->execute())
+        if($stmt->execute(array($this->email)))
             return true;
 
         return false;

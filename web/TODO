@@ -1,26 +1,18 @@
 BD:
-vezi de ce pe products id-ul sare din 10 in 10 (e de la clearDB) si cum remediez asta (daca e cazul?)
-DONE scrierile pe baza de date trebuie sa fie facute cu tranzactii !!!!!!!!!!!!!!
 ??? create user with following rights: users(CRUD), carts(CRUD), reviews(CRUD), order(CRU), stores(R), products(R)
 ??? create user with following rights: users(CRUD), products(CRUD), stores(CRUD), reviews(CRUD), order(CRU), carts(CRUD),
 
-
 Back-end:
 
-Save info about user after login in $_SESSION
-Remember to call session_destroy on logout (work with session ids)
+Add product_id and order_id (cant use user_email like in cart bcs user can have multiple orders, as opposed to just one cart) column to order as well (show product managers the order they are supposed to deliver with Group by order_id)
 Consider synchronization between tables (updating nr of transactions of store when a new order is created etc)
 
-
 Front-end:
-login / register:
--do redirects for login / register failed / succesful DONE
 
-Home:
--Use user's email as identifier for table `carts` DONE
--with add to cart button DONE
--with link towards product details page (pass product params with url for generic php file) DONE
--figure out filtering (look at asort())
+-change / delete account:
+-adapt to fit user details page
+-change from html s to php s
+-make sure to not allow delete or update buttons to affect different accounts 
 
 user details page: 
 -add button for rights elevation ("create store" button)
@@ -29,26 +21,19 @@ user details page:
 -add list of orders (separate in_transit orders from rest)
 -add star score for finished or failed orders 
 
-product detail page:
--generic page with parameters from url DONE
-
 store management page:
 -add buttons for product listing / order listing in navbar (display content based on what is selected)
 -add buttons for order status change 
 -list all STORE RELATED products
--add ADD button at the top 
+-add ADD button at the top and a pop-up(bootstrap?) form for providing info abt new product
 -add edit button for every row
 -add remove button for every row
 -Reviews info
 
 cart details page:
--list products from cart
--add remove button (removes 1 from cart)
--add remove all button (removes all specific type of product from cart)
--add send order button (check and dont allow to order more than what s in stock)
+-finish processing order (else branch in handle_order.php) (after editing order table)
 
 use error_reporting(0); on everything(?)
-consider adding an if((!isset($_SESSION["login"])) exit; at the start of EVERY page
 
 
 

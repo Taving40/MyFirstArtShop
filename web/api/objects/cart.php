@@ -19,10 +19,10 @@ class Cart{
                     c.id, c.user_email, c.product_id, c.quantity
                 FROM 
                     `" . $this->table_name . "` c
-                WHERE c.user_email = '". $this->user_email . "'";
+                WHERE c.user_email = ?";
       
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+        $stmt->execute(array($this->user_email));
       
         return $stmt;
     }
@@ -33,13 +33,13 @@ class Cart{
                     c.id, c.user_email, c.product_id, c.quantity
                 FROM 
                     `" . $this->table_name . "` c
-                WHERE c.product_id = ". $this->product_id .
-                " AND c.user_email = '" . $this->user_email ."'";
+                WHERE c.product_id = ?
+                 AND c.user_email = ?";
       
 
         $stmt = $this->conn->prepare( $query );
 
-        $stmt->execute();
+        $stmt->execute(array( $this->product_id, $this->user_email));
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($row != false){
@@ -55,13 +55,13 @@ class Cart{
         $query = "INSERT INTO
                     `" . $this->table_name . "`
                 SET
-                    `user_email`='". $this->user_email .
-                    "', `product_id`=". $this->product_id .
-                    ", `quantity`=". $this->quantity;
+                    `user_email`= ? ,
+                    `product_id`= ? ,
+                    `quantity`= ?";
 
         $stmt = $this->conn->prepare($query);
 
-        if($stmt->execute()){
+        if($stmt->execute( array($this->user_email, $this->product_id, $this->quantity))){
             
             return true;
         }
@@ -74,15 +74,15 @@ class Cart{
         $query = "UPDATE
                     `" . $this->table_name . "`
                 SET
-                    `user_email`='". $this->user_email .
-                    "', `product_id`=". $this->product_id .
-                    ", `quantity`=". $this->quantity . "
+                    `user_email`= ? , 
+                    `product_id`= ? ,
+                    `quantity`= ?
                 WHERE
-                    `id` = ".$this->id;
+                    `id` = ? ";
       
         $stmt = $this->conn->prepare($query);
 
-        if($stmt->execute())
+        if($stmt->execute(array($this->user_email, $this->product_id, $this->quantity, $this->id )))
             return true;
 
         return false;
@@ -90,11 +90,13 @@ class Cart{
 
     function delete_cart(){
   
-        $query = "DELETE FROM `" . $this->table_name . "` WHERE `user_email` = '". $this->user_email . "'";
+        $query = "DELETE FROM 
+                 `" . $this->table_name . "` 
+                 WHERE `user_email` = ?";
     
         $stmt = $this->conn->prepare($query);
       
-        if($stmt->execute())
+        if($stmt->execute(array($this->user_email)))
             return true;
 
         return false;
@@ -102,11 +104,11 @@ class Cart{
 
     function delete_cart_item(){
   
-        $query = "DELETE FROM `" . $this->table_name . "` WHERE `id` = ". $this->id;
+        $query = "DELETE FROM `" . $this->table_name . "` WHERE `id` = ?";
     
         $stmt = $this->conn->prepare($query);
       
-        if($stmt->execute())
+        if($stmt->execute(array($this->id)))
             return true;
 
         return false;
