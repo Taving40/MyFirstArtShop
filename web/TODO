@@ -15,6 +15,7 @@ Front-end:
 -make sure to not allow delete or update buttons to affect different accounts 
 
 user details page: 
+-remove password from session?
 -add button for rights elevation ("create store" button)
 -add button for change pass / change name
 -add button for delete acc (redirect to already built page, with user details in session)\

@@ -13,6 +13,7 @@ if($name = read_one($data)){
     $data = json_decode($data);
     $_SESSION["email"] = $data->email;
     $_SESSION["name"] = $name;
+    $_SESSION["password"] = $data->password; //just for testing
     $_SESSION["login"] = "succesful";
     header("Location: home.php");
     exit;
