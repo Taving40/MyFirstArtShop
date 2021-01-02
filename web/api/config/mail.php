@@ -2,12 +2,11 @@
 
 <?php
 
-if(dirname(__DIR__, 2) == "web")
+if(dirname(__DIR__, 2) == "/app/web")
 	require dirname(__DIR__, 3) . "/vendor/autoload.php";	
-elseif(dirname(__DIR__, 2) == "htdocs")
+else
 	require dirname(__DIR__, 2) . "/vendor/autoload.php";
 
-	echo dirname(__DIR__, 2);
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -25,11 +24,19 @@ function mailer($to, $from, $from_name, $subject, $body) {
 	$mail->Subject = $subject;
 	$mail->Body = $body;
 	$mail->AddAddress($to);
-	if(!$mail->Send()) {
-		echo "Error!";
-	} else {
-		//echo 'Message sent!';
+
+	try {
+		$mail->Send();
 	}
+	catch (exception $e) {
+		echo $e;
+	}
+
+	// if(!$mail->Send()) {
+	// 	echo "Error!";
+	// } else {
+	// 	//echo 'Message sent!';
+	// }
 }
 
 ?>
