@@ -25,18 +25,18 @@ function mailer($to, $from, $from_name, $subject, $body) {
 	$mail->Body = $body;
 	$mail->AddAddress($to);
 
-	try {
-		$mail->Send();
-	}
-	catch (exception $e) {
-		echo $e;
-	}
-
-	// if(!$mail->Send()) {
-	// 	echo "Error!";
-	// } else {
-	// 	//echo 'Message sent!';
+	// try {
+	// 	$mail->Send();
 	// }
+	// catch (exception $e) {
+	// 	echo $e.ErrorInfo;
+	// }
+
+	if(!$mail->Send()) {
+		echo $mail->ErrorInfo;
+	} else {
+		//echo 'Message sent!';
+	}
 }
 
 ?>
