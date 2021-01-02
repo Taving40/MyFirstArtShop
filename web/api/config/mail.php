@@ -38,6 +38,7 @@ function mailer($to, $from, $from_name, $subject, $body) {
 
 	if(!$mail->Send()) {
 		echo $mail->ErrorInfo;
+		echo $mail->error_log;
 	} else {
 		//echo 'Message sent!';
 	}
