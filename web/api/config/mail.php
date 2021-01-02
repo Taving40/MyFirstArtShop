@@ -7,7 +7,7 @@
 // elseif(dirname(__DIR__, 2) == "htdocs")
 // 	require dirname(__DIR__, 2) . "/vendor/autoload.php";
 
-require dirname(__DIR__, 2) . "/vendor/autoload.php";
+require dirname(__DIR__, 3) . "/vendor/autoload.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 
