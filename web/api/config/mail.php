@@ -2,12 +2,13 @@
 
 <?php
 
-// if(dirname(__DIR__, 2) == "web")
-// 	require /*__DIR__ .*/ '/app/vendor/autoload.php';
-// elseif(dirname(__DIR__, 2) == "htdocs")
-// 	require dirname(__DIR__, 2) . "/vendor/autoload.php";
+if(dirname(__DIR__, 2) == "web")
+	require dirname(__DIR__, 3) . "/vendor/autoload.php";	
+elseif(dirname(__DIR__, 2) == "htdocs")
+	require dirname(__DIR__, 2) . "/vendor/autoload.php";
 
-require dirname(__DIR__, 3) . "/vendor/autoload.php";
+	echo dirname(__DIR__, 2);
+
 
 use PHPMailer\PHPMailer\PHPMailer;
 
