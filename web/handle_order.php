@@ -4,8 +4,6 @@ not_logged_in();?>
 
 <?php
 
-//change if statements and add a order_was_ok and order_is_ok field to session
-
 
 include_once __DIR__ . "/api/cart/update.php";
 include_once __DIR__ . "/api/cart/read_cart.php";
@@ -33,8 +31,17 @@ foreach($products["records"] as $product){
     }
 }
 
-if(!$order_was_ok){ //fix order
+$temp_store_id = $products['records'][0]["product_data"]["store_id"];
 
+foreach($products["records"] as $product){
+    if($product["product_data"]["store_id"] != $temp_store_id){
+        $order_was_ok_one_store = false;
+        break;
+    }
+}
+
+if(!$order_was_ok){ //fix order
+    
 
     foreach($products["records"] as $product){
         if($product["cart_data"]["quantity"] > $product["product_data"]["quantity"]){
@@ -49,8 +56,39 @@ if(!$order_was_ok){ //fix order
     exit;
 }
 
+//only items from ONE SHOP may be ordered at one time
+elseif(!$order_was_ok_one_store){
+
+    $_SESSION["order_was_ok_one_store"] = "neok";
+    $_SESSION['test'] = $temp_store_id;
+    header("Location: cart_details.php");
+    exit;
+}
+
 else{ //process order
     
+    include_once __DIR__ . "/api/order_items/create.php";
+    include_once __DIR__ . "/api/order/create.php";
+    //first create an order 
+
+    $data = json_encode(array("user_email" => $_SESSION['email'],
+                              "status" => 'in_transit',
+                              "responsabil_id" => $products["records"][0]["product_data"]["store_id"]));
+
+    // $data->user_email = $data->user_email;
+    // $data->status = $data->status;
+    // $data->responsabil_id = $data->responsabil_id;
+
+
+    //then create the order items associated to it
+
+    // foreach($products["records"] as $product){
+    //     $data = json_encode(array("order_id" => ceva,
+    //                               "product_id" => $product["product_data"]["id"],
+    //                               "quantity" => $product["cart_data"]["quantity"]));
+    //     create_order_item($data);
+    // }
+
     $_SESSION["order_was_ok"] = "ok";
     header("Location: cart_details.php");
     exit;

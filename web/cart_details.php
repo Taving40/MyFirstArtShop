@@ -4,6 +4,8 @@ include_once __DIR__ . "/api/config/utilities.php";
 
 not_logged_in();
 
+echo $_SESSION['test'];
+
 ?>
 
 <?php include_once 'header.php'; ?>
@@ -109,6 +111,18 @@ if (isset($_SESSION["order_was_ok"]) && $_SESSION["order_was_ok"] == "ok"){?>
     
 <?php }
 
+if (isset($_SESSION["order_was_ok_one_store"]) && $_SESSION["order_was_ok_one_store"] == "neok"){?>
+
+    <div class="alert alert-dark alert-warning alert-dismissible fade show" role="alert">
+     Your order may only contain items from a single store, as that store will also be responsible for the delivery. Please remove the items from your cart that belong to other stores and order them separately.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    
+<?php }
+
+unset($_SESSION["order_was_ok_one_store"]); 
 unset($_SESSION["order_was_ok"]); 
 unset($_SESSION["order_is_ok"]);
 

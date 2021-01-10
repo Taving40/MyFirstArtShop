@@ -31,7 +31,6 @@ function read_all_for_buyer($data){
             "id" => $id,
             "user_email" => $user_email,
             "status" => $status,
-            "responsabil_id" => $responsabil_id,
             "address" => $address,
             "eta" => $eta,
             "plata" => $plata

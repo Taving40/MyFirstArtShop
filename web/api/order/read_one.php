@@ -24,22 +24,17 @@ function read_one($data){
             "id" => $order->id,
             "user_email" => $order->user_email,
             "status" => $order->status,
-            "responsabil_id" => $order->responsabil_id,
             "address" => $order->address,
             "eta" => $order->eta,
             "plata" => $order->plata
         );
     
-        //200 OK
-        // http_response_code(200);
-        // echo json_encode($order_arr);
+
         return $order_arr;
     }
     
     else{
-        //http_response_code(404);
-        //echo "order does not exist.";
-        //echo json_encode(array("message" => "order does not exist."));
+
         return false;
     }
 }

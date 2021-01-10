@@ -25,19 +25,12 @@ function update($data){
             $user->email = $data->email;
 
             if($user->update_pass()){
-                //200 ok
-                //http_response_code(200);
-                //echo "user was updated.";
-                //echo json_encode(array("message" => "user was updated."));
+
                 return true;
             }
         }
 
         else{
-            //503 service unavailable
-            //http_response_code(503);
-            //echo "Unable to update user.";
-            //echo json_encode(array("message" => "Unable to update user."));
 
             return false;
         }
@@ -56,19 +49,12 @@ function update($data){
             $user->email = $data->email;
 
             if($user->update_name()){
-                //200 ok
-                //http_response_code(200);
-                //echo "user was updated.";
-                //echo json_encode(array("message" => "user was updated."));
+
                 return true;
             }
         }
 
         else{
-            //503 service unavailable
-            //http_response_code(503);
-            //echo "Unable to update user.";
-            //echo json_encode(array("message" => "Unable to update user."));
 
             return false;
         }

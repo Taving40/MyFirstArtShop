@@ -4,7 +4,7 @@ include_once dirname(__DIR__).'/config/database.php';
 include_once dirname(__DIR__).'/objects/order.php';
 
 
-function create($data){
+function create_order($data){
 
     $database = new Database();
     $db = $database->getConnection();

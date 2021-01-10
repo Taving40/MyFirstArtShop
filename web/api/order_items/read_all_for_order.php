@@ -1,20 +1,22 @@
 <?php
   
 include_once dirname(__DIR__).'/config/database.php';
-include_once dirname(__DIR__).'/objects/order.php';
+include_once dirname(__DIR__).'/objects/order_items.php';
 
-//receives responsabil_id
-function read_all_for_store($data){
+//receives order_id
+function read_all_for_order($data){
 
     $database = new Database();
     $db = $database->getConnection();
-    $order = new Order($db);
+    $order = new Order_items($db);
 
-    if($data){
-        $order->responsabil_id = $data;
+    $data = json_decode($data);
+
+    if($data->order_id){
+        $order->order_id = $data;
     }
 
-    $stmt = $order->read_all_for_store();
+    $stmt = $order->read_all_for_order();
     $num = $stmt->rowCount();
 
     if($num>0){
@@ -29,27 +31,19 @@ function read_all_for_store($data){
 
             $order_item=array( // face array din ele
             "id" => $id,
-            "user_email" => $user_email,
-            "status" => $status,
-            "address" => $address,
-            "eta" => $eta,
-            "plata" => $plata
+            "order_id" => $order_id,
+            "product_id" => $product_id,
+            "quantity" => $quantity
             );
             
             array_push($orders_arr["records"], $order_item);
         }
     
-        //http_response_code(200);
-        //echo $orders_arr;
-        //echo json_encode($orders_arr);
+
     }
     
     else{
-        //http_response_code(404);
-        //echo "No orders found.";
-        //echo json_encode(
-        //    array("message" => "No orders found.")
-        //);
+
         $orders_arr = array();
         array_push($orders_arr, "error");
 

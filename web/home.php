@@ -54,7 +54,12 @@ $products = read();
 if (!array_key_exists("error", $products)){ 
 
     $sorter = new Nested_arr_uasort();
-    $sorter->arr_of_arrs = $products["records"];
+
+    if(isset($products["records"]))
+        $sorter->arr_of_arrs = $products["records"];
+    else
+        exit;
+
     if(isset($_POST["filter"])){
         $data = $_POST;
         $data = valid_input($data);
