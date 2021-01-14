@@ -49,6 +49,87 @@ function not_logged_in(){
 
 }
 
+function user_has_access_order($user_email, $order_id){
+
+    include_once dirname(__DIR__, 2) . "/api/store/read_all_for_user.php";
+    include_once dirname(__DIR__, 2) . "/api/order/read_one.php";
+    include_once dirname(__DIR__, 2) . "/api/order/read_all_for_store.php";
+
+
+    $data = json_encode(array("email" => $user_email));
+
+    $stores = read_all_for_user($data);
+
+    $store_ids_to_consider = array();
+
+    foreach($stores["records"] as $store){
+        array_push($store_ids_to_consider, $store["id"]);
+    }
+
+    $has_access = false;
+
+    foreach($store_ids_to_consider as $store_id){
+        $data = read_all_for_store(json_encode(array("responsabil_id" => $store_id)));
+        //print_r($data);
+        if(!isset($data[0]))
+        foreach($data["records"] as $store_order){
+            if($store_order["id"] == $order_id)
+                $has_access = true;
+        }
+    }
+
+    return $has_access;
+
+
+}
+
+function get_store($store_id){
+    include_once dirname(__DIR__, 2) . "/api/store/read_one.php";
+
+    return read_one(json_encode(array("id" => $store_id)));
+}
+
+function user_has_access($user_email, $product_id){
+
+    include_once dirname(__DIR__, 2) . "/api/product/read_all_for_store.php";
+    include_once dirname(__DIR__, 2) . "/api/store/read_all_for_user.php";
+
+    $data = json_encode(array("email" => $user_email));
+
+    $stores = read_all_for_user($data);
+
+    $store_ids_to_consider = array();
+
+    foreach($stores["records"] as $store){
+        array_push($store_ids_to_consider, $store["id"]);
+    }
+
+    $products = array();
+
+    foreach($store_ids_to_consider as $store_id){
+        $data = json_encode(array("store_id" => $store_id));
+
+        $one_store_products = read_all_for_store($data);
+
+        if(isset($one_store_products["records"]))
+        $products = array_merge($products, $one_store_products["records"]);
+    }
+
+    $has_access = false;
+
+    if(isset($products[0]))
+    foreach($products as $product){
+        if($product["id"] == $product_id){
+            $has_access = true;
+            break;
+        }
+    }
+
+    return $has_access;
+
+
+}
+
 function valid_input($data){
     
     foreach($data as $field){

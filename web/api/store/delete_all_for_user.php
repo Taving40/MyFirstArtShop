@@ -2,8 +2,8 @@
   
 include_once dirname(__DIR__).'/config/database.php';
 include_once dirname(__DIR__).'/objects/store.php';
-//receives store id
-function delete($data){
+//receives user email
+function delete_all_for_user($data){
         
     $database = new Database();
     $db = $database->getConnection();
@@ -11,10 +11,10 @@ function delete($data){
     
     $data = json_decode($data);
     
-    if($data->name)
-        $store->store_nume = $data->name;
+    if($data->email)
+        $store->admin_email = $data->email;
     
-    if($store->delete()){
+    if($store->delete_all_for_user()){
         return true;
     }
     

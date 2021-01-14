@@ -13,7 +13,7 @@ function read_all_for_order($data){
     $data = json_decode($data);
 
     if($data->order_id){
-        $order->order_id = $data;
+        $order->order_id = $data->order_id;
     }
 
     $stmt = $order->read_all_for_order();

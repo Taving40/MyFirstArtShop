@@ -4,7 +4,7 @@ include_once __DIR__ . "/api/config/utilities.php";
 
 not_logged_in();
 
-echo $_SESSION['test'];
+
 
 ?>
 

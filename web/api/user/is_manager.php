@@ -8,9 +8,8 @@ function is_manager($data){
 
     $database = new Database();
     $db = $database->getConnection();
-    $user = new User($db);
-
     $store = new Store($db);
+    
     $stmt = $store->read();
 
     $data = json_decode($data);

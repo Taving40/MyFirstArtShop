@@ -83,7 +83,10 @@ if (!array_key_exists("error", $products)){
             <td> <?php echo $product["store_score"] ?> </td>
             <td> 
                 <form method="POST" action="add_product_to_cart.php">
+                    <?php if($product["quantity"] > 0) { ?>
                 <button type="submit" class="btn-secondary" name="product_id" value= <?php echo '"'. $product["id"] .'"' ?>   > Add to cart </button> 
+                    <?php } ?>
+                
                 </form>
             </td>
         </tr>

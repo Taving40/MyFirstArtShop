@@ -33,8 +33,12 @@ $product = read_one_product($data);
   </ul>
   <div class="card-body">
     <form method="POST" action="add_product_to_cart.php">
-    <button type="submit" class="btn-default" name="product_id" value= <?php echo '"'. $product["id"] .'"' ?>   > Add to cart </button> 
-    </form>
+
+    <?php if($product["quantity"] > 0) { ?>
+      <button type="submit" class="btn-secondary" name="product_id" value= <?php echo '"'. $product["id"] .'"' ?>   > Add to cart </button> 
+    <?php } ?>
+
+  </form>
   </div>
 </div>
 <?php include_once "footer.php"; ?>

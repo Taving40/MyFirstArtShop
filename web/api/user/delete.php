@@ -22,21 +22,13 @@ function delete($data){
     $user->email = $data->email;
     
     if($user->delete()){
-    
-        //200 ok
-        //http_response_code(200);
-        //echo "user was deleted.";
-        //echo json_encode(array("message" => "user was deleted."));
+
         return true;
     }
 
     }
     else{
     
-        //503 service unavailable
-        //http_response_code(503);
-        // echo "Unable to delete user.";
-        //echo json_encode(array("message" => "Unable to delete user."));
         return false;
     }
 }

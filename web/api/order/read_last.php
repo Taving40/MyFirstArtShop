@@ -3,7 +3,7 @@
 include_once dirname(__DIR__).'/config/database.php';
 include_once dirname(__DIR__).'/objects/order.php';
   
-function read_one($data){
+function read_last($data){
 
     $database = new Database();
     $db = $database->getConnection();
@@ -11,12 +11,12 @@ function read_one($data){
     
     $data = json_decode($data);
 
-    if ($data->id)
-        $order->id = $data->id;
+    if ($data->user_email)
+        $order->user_email = $data->user_email;
     else
         return false;
 
-    $order->read_one();
+    $order->read_last();
     
     if($order->user_email){
 

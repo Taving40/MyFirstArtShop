@@ -17,9 +17,6 @@ function create_order($data){
         $order->user_email = $data->user_email;
         $order->status = $data->status;
         $order->responsabil_id = $data->responsabil_id;
-        $order->address = $data->address;
-        $order->eta = $data->eta;
-        $order->plata = $data->plata;
 
         if($order->create()){
             return true;

@@ -51,6 +51,45 @@ class Store{
         }
     }
 
+    
+    function read_one_name(){
+
+        $query = "SELECT 
+                    s.id, s.admin_email, s.store_nume, s.score, s.nr_tranzactii
+                FROM 
+                    `" . $this->table_name . "` s
+                WHERE s.store_nume = ?";
+      
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute(array($this->store_nume));
+      
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($row != false){
+            $this->id = $row['id'];
+            $this->admin_email = $row['admin_email'];
+            $this->store_nume = $row['store_nume'];
+            $this->score = $row['score'];
+            $this->nr_tranzactii = $row['nr_tranzactii'];
+        }
+    }
+
+    function read_all_for_user(){
+
+        $query = "SELECT 
+                    s.id, s.admin_email, s.store_nume, s.score, s.nr_tranzactii
+                FROM 
+                    `" . $this->table_name . "` s
+                WHERE s.admin_email = ?";
+      
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute(array($this->admin_email));
+      
+        return $stmt;
+    }
+
     function create(){
   
         $query = "INSERT INTO
@@ -98,11 +137,23 @@ class Store{
 
     function delete(){
   
-        $query = "DELETE FROM `" . $this->table_name . "` WHERE `id` = ?";
+        $query = "DELETE FROM `" . $this->table_name . "` WHERE `store_nume` = ?";
     
         $stmt = $this->conn->prepare($query);
       
-        if($stmt->execute(array($this->id)))
+        if($stmt->execute(array($this->store_nume)))
+            return true;
+
+        return false;
+    }
+
+    function delete_all_for_user(){
+  
+        $query = "DELETE FROM `" . $this->table_name . "` WHERE `admin_email` = ?";
+    
+        $stmt = $this->conn->prepare($query);
+      
+        if($stmt->execute(array($this->admin_email)))
             return true;
 
         return false;

@@ -20,7 +20,7 @@ if(!read_one_email(json_encode($data))){
     $_SESSION["key"] = $key;
 
     mailer($data["email"], "myfirstartshop@gmail.com", "Art Shop", "Email confirmation", 
-    "Please confirm your email with the following code: " . $key . ".");
+    "Please confirm your email with the following code: " . $key);
 
 }
 

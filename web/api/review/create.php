@@ -11,9 +11,10 @@ function create($data){
     
     $data = json_decode($data);
 
-    if(!empty($data->user_email)){
+    if(!empty($data->user_email) && !empty($data->order_id)){
 
         $review->user_email = $data->user_email;
+        $review->order_id = $data->order_id;
         $review->score = $data->score;
         $review->store_id = $data->store_id;
 

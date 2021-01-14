@@ -16,6 +16,7 @@ function update($data){
 
         $review->id = $data->id;
         $review->user_email = $data->user_email;
+        $review->order_id = $data->order_id;
         $review->score = $data->score;
         $review->store_id = $data->store_id;
     

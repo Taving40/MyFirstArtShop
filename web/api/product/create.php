@@ -4,7 +4,7 @@ include_once dirname(__DIR__).'/config/database.php';
 include_once dirname(__DIR__).'/objects/product.php';
 
 //expects complete product data, need to give store_id as well
-function create($data){
+function create_product($data){
 
     $database = new Database();
     $db = $database->getConnection();

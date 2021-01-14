@@ -38,6 +38,7 @@ class Order_items{
                     `order_id`= ?
                     , `product_id`= ?
                     , `quantity`= ?";
+
         $stmt = $this->conn->prepare($query);
     
         if($stmt->execute(array($this->order_id,
@@ -90,6 +91,18 @@ class Order_items{
         $stmt = $this->conn->prepare($query);
       
         if($stmt->execute(array($this->order_id)))
+            return true;
+
+        return false;
+    }
+
+    function delete_all_for_store($store_id){
+  
+        $query = "DELETE FROM `" . $this->table_name . "` WHERE `store_id` = ?";
+    
+        $stmt = $this->conn->prepare($query);
+      
+        if($stmt->execute(array($store_id)))
             return true;
 
         return false;

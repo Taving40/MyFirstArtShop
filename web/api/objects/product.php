@@ -36,6 +36,26 @@ class Product{
         return $stmt;
     }
 
+    function read_all_for_store(){
+  
+        $query = "SELECT
+                    p.id, p.name, p.store_id, p.price, p.description, p.quantity, 
+                    p.size, p.type, s.`store_nume`, s.`score`
+                FROM
+                    `" . $this->table_name . "` p, `stores` s
+                WHERE 
+                    p.store_id = s.id
+                AND
+                    p.store_id = ?
+                ORDER BY
+                    p.id ASC";
+      
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(array($this->store_id));
+      
+        return $stmt;
+    }
+
     function readOne(){
   
         // query to read single record
@@ -137,6 +157,18 @@ class Product{
         $stmt = $this->conn->prepare($query);
       
         if($stmt->execute(array($this->id)))
+            return true;
+
+        return false;
+    }
+
+    function delete_all_for_store($store_id){
+  
+        $query = "DELETE FROM `" . $this->table_name . "` WHERE `store_id` = ?";
+    
+        $stmt = $this->conn->prepare($query);
+      
+        if($stmt->execute(array($store_id)))
             return true;
 
         return false;

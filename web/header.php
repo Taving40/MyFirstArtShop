@@ -34,8 +34,15 @@
         <li class="nav-item">
             <a class="nav-link" href="acc_details.php" >Account Details</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="" >Store Management</a>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Store management
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="store_management.php?mode=products">Products</a>
+          <a class="dropdown-item" href="store_management.php?mode=orders"> Orders</a>
+          <a class="dropdown-item" href="store_management.php?mode=store_details"> Store details</a>
+        </div>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="cart_details.php" >Cart Details</a>

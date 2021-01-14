@@ -2,20 +2,21 @@
   
 include_once dirname(__DIR__).'/config/database.php';
 include_once dirname(__DIR__).'/objects/review.php';
-//expects to receive id (of individual review)
-function read_one($data){
+//expects to receive order_id 
+function read_one_order($data){
 
     $database = new Database();
     $db = $database->getConnection();
     $review = new Review($db);
 
-    $data = json_decode($data);
-    if ($data->id)
-        $review->id = $data->id;
+    $data= json_decode($data);
+
+    if ($data->order_id)
+        $review->order_id = $data->order_id;
     else
         return false;
 
-    $review->read_one();
+    $review->read_one_order();
     
     if($review->user_email){
 

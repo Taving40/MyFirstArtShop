@@ -8,9 +8,6 @@ class Order{
     public $user_email;
     public $status;
     public $responsabil_id;
-    public $address;
-    public $eta;
-    public $plata;
     
     public function __construct($db){
         $this->conn = $db;
@@ -19,7 +16,7 @@ class Order{
     function read_all_for_buyer(){
   
         $query = "SELECT
-                    o.id, o.user_email, o.status, o.responsabil_id, o.address, o.eta, o.plata
+                    *
                 FROM
                     `" . $this->table_name . "` o
                 WHERE o.user_email = ?
@@ -35,23 +32,49 @@ class Order{
     function read_all_for_store(){
   
         $query = "SELECT
-                    o.id, o.user_email, o.status, o.responsabil_id, o.address, o.eta, o.plata
+                    *
                 FROM
                     `" . $this->table_name . "` o
                 WHERE o.responsabil_id = ?
                 ORDER BY
                     o.id ASC";
-      
+
         $stmt = $this->conn->prepare($query);
         $stmt->execute(array($this->responsabil_id));
       
         return $stmt;
     }
 
+    function read_last(){
+
+        $query = "SELECT 
+                    *
+                FROM 
+                    `" . $this->table_name . "` o
+                WHERE o.id = (select max(id) from `order`)
+                AND o.user_email = ?";
+      
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute(array($this->user_email));
+      
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($row != false){
+            //echo $row['user_email'];
+            //echo 0;
+            $this->id = $row['id'];
+            $this->user_email = $row['user_email'];
+            $this->status = $row['status'];
+            $this->responsabil_id = $row['responsabil_id'];
+
+        }
+    }
+
     function read_one(){
 
         $query = "SELECT 
-                    o.id, o.user_email, o.status, o.responsabil_id, o.address, o.eta, o.plata
+                    *
                 FROM 
                     `" . $this->table_name . "` o
                 WHERE o.id = ?";
@@ -63,15 +86,12 @@ class Order{
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($row != false){
-            //echo $row['user_email'];
-            //echo 0;
+
             $this->id = $row['id'];
             $this->user_email = $row['user_email'];
             $this->status = $row['status'];
             $this->responsabil_id = $row['responsabil_id'];
-            $this->address = $row['address'];
-            $this->eta = $row['eta'];
-            $this->plata = $row['plata'];
+
         }
     }
 
@@ -82,18 +102,12 @@ class Order{
                 SET
                     `user_email`= ?
                     , `status`= ?
-                    , `responsabil_id`= ?
-                    , `address`= ?
-                    , `eta`= ?
-                    , `plata`= ?";
+                    , `responsabil_id`= ?";
         $stmt = $this->conn->prepare($query);
     
         if($stmt->execute(array($this->user_email,
                                 $this->status,
-                                $this->responsabil_id,
-                                $this->address,
-                                $this->eta,
-                                $this->plata))){
+                                $this->responsabil_id))){
             return true;
         }
             
@@ -108,9 +122,6 @@ class Order{
                     `user_email`= ?
                     , `status`= ?
                     , `responsabil_id`= ?
-                    , `address`= ?
-                    , `eta`= ?
-                    , `plata`= ?
                 WHERE
                     `id` = ?";
       
@@ -119,9 +130,6 @@ class Order{
         if($stmt->execute(array($this->user_email,
                                 $this->status,
                                 $this->responsabil_id,
-                                $this->address,
-                                $this->eta,
-                                $this->plata,
                                 $this->id)))
             return true;
 
@@ -135,6 +143,18 @@ class Order{
         $stmt = $this->conn->prepare($query);
       
         if($stmt->execute(array($this->id)))
+            return true;
+
+        return false;
+    }
+
+    function delete_all_for_store($store_id){
+  
+        $query = "DELETE FROM `" . $this->table_name . "` WHERE `store_id` = ?";
+    
+        $stmt = $this->conn->prepare($query);
+      
+        if($stmt->execute(array($store_id)))
             return true;
 
         return false;

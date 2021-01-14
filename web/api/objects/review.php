@@ -5,6 +5,7 @@ class Review{
     private $table_name = "reviews";
   
     public $id;
+    public $order_id;
     public $score;
     public $user_email;
     public $store_id;
@@ -16,7 +17,7 @@ class Review{
     function read_one_store(){
   
         $query = "SELECT 
-                    r.id, r.user_email, r.score, r.store_id
+                    r.id, r.order_id, r.user_email, r.score, r.store_id
                 FROM 
                     `" . $this->table_name . "` r
                 WHERE r.store_id = ?";
@@ -30,7 +31,7 @@ class Review{
     function read_one(){
 
         $query = "SELECT 
-                    r.id, r.user_email, r.score, r.store_id
+                    r.id, r.order_id, r.user_email, r.score, r.store_id
                 FROM 
                     `" . $this->table_name . "` r
                 WHERE r.id = ?";
@@ -49,6 +50,28 @@ class Review{
         }
     }
 
+    function read_one_order(){
+
+        $query = "SELECT 
+                    r.id, r.order_id, r.user_email, r.score, r.store_id
+                FROM 
+                    `" . $this->table_name . "` r
+                WHERE r.order_id = ?";
+      
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute(array($this->order_id));
+      
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($row != false){
+            $this->id = $row['id'];
+            $this->user_email = $row['user_email'];
+            $this->score = $row['score'];
+            $this->store_id = $row['store_id'];
+        }
+    }
+
     function create(){
   
         $query = "INSERT INTO
@@ -56,12 +79,14 @@ class Review{
                 SET
                     `user_email`= ?
                     , `score`= ?
+                    , `order_id`= ?
                     , `store_id`=?";
 
         $stmt = $this->conn->prepare($query);
         //echo $query;
         if($stmt->execute(array($this->user_email,
                                 $this->score,
+                                $this->order_id,
                                 $this->store_id))){
             return true;
         }
@@ -76,6 +101,7 @@ class Review{
                 SET
                     `user_email`= ?
                     , `store_id`= ?
+                    , `order_id`= ?
                     , `score`= ?
                 WHERE
                     `id` = ?";
@@ -83,8 +109,9 @@ class Review{
         $stmt = $this->conn->prepare($query);
 
         if($stmt->execute(array($this->user_email,
-                                $this->score,
                                 $this->store_id,
+                                $this->order_id,
+                                $this->score,
                                 $this->id)))
             return true;
 
